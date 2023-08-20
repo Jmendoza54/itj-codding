@@ -48,7 +48,7 @@ php artisan storage:link
 php artisan serve
 ```
 
-## Opne other terminal ang go again to the folder, them run this command to get the Assigment Address for all the Drivers
+## Open other terminal ang go again to the folder, them run this command to get the Assigment Address for all the Drivers
 
 ```
 php artisan app:assign-routes
