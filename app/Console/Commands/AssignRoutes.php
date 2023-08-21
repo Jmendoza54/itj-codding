@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\AssignController;
 
 class AssignRoutes extends Command
 {
@@ -26,7 +26,7 @@ class AssignRoutes extends Command
      */
     public function handle()
     {
-        $assigned = new FileController();
+        $assigned = new AssignController();
         $assigned->assignDrivers();
     }
 }

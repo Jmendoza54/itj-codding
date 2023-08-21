@@ -1,42 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Traits;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 
-class FileController extends Controller
-{
-    public function getDrivers()
-    {
+trait FunctionsTraits {
 
-        //Get data from txt file
-        $data = Storage::get('public/10-list-drivers.txt');
-        //Every End Of Line put ","
-        $array = str_replace(PHP_EOL, ",", $data);
-        //Create an array exploding data with ","
-        $drivers = explode(',', $array);
-        //Clean array from empty data
-        $drivers = array_filter($drivers);
-
-        return $drivers;
-    }
-
-    public function getAddresses()
-    {
-
-        //Get data from txt file
-        $data = Storage::get('public/10-list-addresses.txt');
-        //Create an array exploding data with End of Line
-        $addresses = explode(PHP_EOL, $data);
-        //Clean array from empty data
-        $addresses = array_filter($addresses);
-
-        return $addresses;
-    }
-
-    public function isEven($streetName)
+    private function isEven($streetName)
     {
         //Verify length of streetname is Even
         if (Str::length($streetName) % 2 == 0) {
@@ -47,7 +18,7 @@ class FileController extends Controller
         return false;
     }
 
-    public function lengthDriverName($driverName, $kind)
+    private function lengthDriverName($driverName, $kind)
     {
         //WE will compare to match with the option selected
         $vowels = '/[aeiou]/i';
@@ -69,16 +40,10 @@ class FileController extends Controller
         return $count;
     }
 
-    public function assignDrivers()
-    {
+    public function assignRoutes($addresses, $drivers){
+
         //Create collection to return routes assigned to drivers
         $assigned = new Collection();
-
-
-        //Get all Addressess
-        $addresses = $this->getAddresses();
-        //Get all Drivers Name
-        $drivers = $this->getDrivers();
 
         //Clean address by addres to get street name
         foreach ($addresses as $key => $address) {
@@ -135,7 +100,6 @@ class FileController extends Controller
 
         }
 
-        //Print the collection
-        dd($assigned->toArray());
+        return $assigned;
     }
 }
