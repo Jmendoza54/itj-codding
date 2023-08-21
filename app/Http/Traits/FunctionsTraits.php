@@ -4,8 +4,21 @@ namespace App\Http\Traits;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 trait FunctionsTraits {
+
+    public function getDataFile($fileName)
+    {
+        //Get data from txt file
+        $data = Storage::get("public/10-list-{$fileName}.txt");
+        //Create an array exploding data with End of Line
+        $arrayData = explode(PHP_EOL, $data);
+        //Clean array from empty data
+        $arrayData = array_filter($arrayData);
+
+        return $arrayData;
+    }
 
     private function isEven($streetName)
     {
